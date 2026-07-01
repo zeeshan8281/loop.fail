@@ -13,7 +13,7 @@ Prompt Golf optimizes a single prompt. Loop Squad optimizes a *system*: a squad 
 New here? Load the [get-started skill](skills/loop-squad/SKILL.md) into your agent, or just:
 
 ```bash
-git clone <your fork> && cd loop-squad
+git clone <your fork> && cd loop.fail
 pip install -r requirements.txt
 ./loop config --handle <your_github_handle>
 export DARKBLOOM_API_KEY=...          # and/or ANTHROPIC_API_KEY / OPENAI_API_KEY
