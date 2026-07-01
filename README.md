@@ -126,7 +126,7 @@ Three problems, ramping up (`./loop tasks`). Each lives in `tasks/NNN_*/`
 
 ```
 loop / loop_cli.py   the CLI — config · tasks · start · run · submit · submissions
-skills/loop-squad/   the get-started skill (loop `install-skill` drops it in ~/.claude)
+skills/loop-squad/   the get-started skill — the agent's full playbook
 runner.py            the bounded loop + hashing      (DO NOT EDIT)
 scorer.py            the scoring formula             (DO NOT EDIT)
 verifier.py          runs the sealed tests           (DO NOT EDIT)

@@ -1,6 +1,6 @@
 ---
 name: loop-squad
-description: "Get started with Loop Squad using the `loop` CLI: config, tasks, task, start, run, submit, submissions, version, install-skill. Design a 3/5/7-agent squad + architecture, run it locally against a sealed task with your own API keys, and open a leaderboard PR. Use when a solver or coding agent wants to enter Loop Squad, pick a problem, build/tune a squad, run a task, improve a score, or submit a benchmark result."
+description: "Get started with Loop Squad using the `loop` CLI: config, tasks, task, start, run, submit, submissions, version. Design a 3/5/7-agent squad + architecture, run it locally against a sealed task with your own API keys, and open a leaderboard PR. Use when a solver or coding agent wants to enter Loop Squad, pick a problem, build/tune a squad, run a task, improve a score, or submit a benchmark result."
 ---
 
 # Loop Squad — get started
@@ -99,11 +99,10 @@ the row keeps a **self-reported** badge. Unsolved or `--mock` runs are refused.
 Check the board periodically — leaders move as builders learn. Beating the current best is
 the whole game.
 
-## Maintenance
+## Version
 
 ```bash
 ./loop version                 # CLI version
-./loop install-skill           # copy this skill into ~/.claude/skills (restart your agent after)
 ```
 
 ## Rules you must enforce

@@ -7,7 +7,7 @@
   loop submit 001               # append your result to leaderboard.yaml + PR instructions
   loop submissions [--all]      # the leaderboard
   loop config --handle you      # set your GitHub handle
-  loop version | loop install-skill
+  loop version
 
 No server, no login — your GitHub handle is your identity and your own API keys do the work.
 """
@@ -207,16 +207,6 @@ def cmd_version(args):
     print("loop 1.0.0  ·  Loop Squad — Eigen Builder Collective")
 
 
-def cmd_install_skill(args):
-    src = ROOT / "skills" / "loop-squad"
-    dst = Path.home() / ".claude" / "skills" / "loop-squad"
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    if dst.exists():
-        shutil.rmtree(dst)
-    shutil.copytree(src, dst)
-    print(f"Installed skill -> {dst}\nRestart your agent app to pick it up.")
-
-
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="loop", description="Loop Squad CLI")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -245,7 +235,6 @@ def main(argv=None):
     p.set_defaults(fn=cmd_submissions)
 
     sub.add_parser("version", help="print version").set_defaults(fn=cmd_version)
-    sub.add_parser("install-skill", help="install the agent skill globally").set_defaults(fn=cmd_install_skill)
 
     args = ap.parse_args(argv)
     args.fn(args)

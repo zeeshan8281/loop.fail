@@ -147,16 +147,13 @@
   .stat .l{color:var(--muted-foreground);font-size:13px;margin-top:2px;}
 
   /* ── get-started CTA ── */
-  .cta{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
-    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-2xl);padding:20px 22px;box-shadow:var(--shadow-sm);}
-  .cta-copy h3{margin:0 0 5px;font-size:16px;font-weight:600;letter-spacing:-.01em;}
-  .cta-copy p{margin:0;font-size:14px;color:var(--muted-foreground);max-width:480px;}
+  .cta{margin-top:16px;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:28px;
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-2xl);padding:22px 24px;box-shadow:var(--shadow-sm);}
+  @media(max-width:760px){.cta{grid-template-columns:1fr;gap:18px;}}
+  .cta-copy h3{margin:0 0 6px;font-size:17px;font-weight:600;letter-spacing:-.01em;}
+  .cta-copy p{margin:0;font-size:14px;color:var(--muted-foreground);}
   .cta-copy code{font-family:var(--font-mono);background:var(--muted);padding:1px 5px;border-radius:var(--radius-md);font-size:.85em;color:var(--foreground);}
-  .cta-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .clone{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--foreground);
-    background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-md);padding:8px 12px;cursor:pointer;transition:border-color .12s;}
-  .clone:hover{border-color:var(--ring);}
-  .clone .cp{color:var(--muted-foreground);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;}
+  .cta-code{margin:0;}
 
   /* ── cards ── */
   .grid{display:grid;gap:16px;}
@@ -280,12 +277,14 @@
     <div class="cta">
       <div class="cta-copy">
         <h3>Clone this to get started</h3>
-        <p>Open the <code>loop-squad</code> skill after cloning — it's the full playbook (setup → squad → run → submit), so your coding agent has everything it needs in context.</p>
+        <p>The whole playbook lives in <code>skills/loop-squad</code> — setup, squad design,
+        running, submitting. Clone the repo and hand that file to your coding agent; it has
+        all the context it needs to play.</p>
+        <a class="btn btn-primary" style="margin-top:14px" href="https://github.com/zeeshan8281/loop.fail/blob/main/skills/loop-squad/SKILL.md" target="_blank" rel="noopener">Read the skill →</a>
       </div>
-      <div class="cta-actions">
-        <button class="clone" id="clone" title="Click to copy">git clone https://github.com/zeeshan8281/loop.fail<span class="cp">copy</span></button>
-        <a class="btn btn-primary" href="https://github.com/zeeshan8281/loop.fail/blob/main/skills/loop-squad/SKILL.md" target="_blank" rel="noopener">Open the agent skill →</a>
-      </div>
+      <pre class="code cta-code"><span class="p">git</span> clone https://github.com/zeeshan8281/loop.fail
+<span class="p">cd</span> loop.fail
+<span class="c"># the agent's playbook →</span> skills/loop-squad/SKILL.md</pre>
     </div>
   </section>
 
@@ -432,16 +431,6 @@ async function loadBoards(){
   const root=document.documentElement, saved=localStorage.getItem('ls-theme');
   if(saved==='dark'||(!saved&&matchMedia('(prefers-color-scheme: dark)').matches)) root.classList.add('dark');
   document.getElementById('theme').onclick=()=>{ root.classList.toggle('dark'); localStorage.setItem('ls-theme', root.classList.contains('dark')?'dark':'light'); };
-})();
-
-/* ── copy clone command ── */
-(function(){
-  const el=document.getElementById('clone'); if(!el) return;
-  el.onclick=()=>{
-    navigator.clipboard?.writeText('git clone https://github.com/zeeshan8281/loop.fail');
-    const c=el.querySelector('.cp'), t=c.textContent; c.textContent='copied ✓';
-    setTimeout(()=>c.textContent=t, 1300);
-  };
 })();
 
 showView(location.hash.slice(1) || 'overview');
