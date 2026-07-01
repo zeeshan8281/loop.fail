@@ -1,0 +1,10 @@
+# static site only — keep Vercel from detecting the Python game engine as the build
+*.py
+requirements.txt
+architectures/
+tasks/
+submissions/
+starters/
+tests/
+.loop/
+loop
