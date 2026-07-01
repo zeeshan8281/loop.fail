@@ -2,7 +2,7 @@
 
 _MODEL = "z-ai/glm-4.6"                # glm-5.2 is not a real OpenRouter slug; 4.6 is the current GLM
 _BASE = "https://openrouter.ai/api/v1"
-_PRICING = {"in": 0.40, "out": 1.75}  # z-ai/glm-4.6 $/1M — verify the live rate at openrouter.ai/models
+_PRICING = {"in": 0.43, "out": 1.74}  # z-ai/glm-4.6 live $/1M (verified openrouter.ai/models)
 _KEY = "OPENROUTER_API_KEY"
 
 SQUAD = {
