@@ -146,6 +146,18 @@
   .stat .n{font-family:var(--font-mono);font-size:26px;font-weight:600;letter-spacing:-.02em;}
   .stat .l{color:var(--muted-foreground);font-size:13px;margin-top:2px;}
 
+  /* ── get-started CTA ── */
+  .cta{margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius-2xl);padding:20px 22px;box-shadow:var(--shadow-sm);}
+  .cta-copy h3{margin:0 0 5px;font-size:16px;font-weight:600;letter-spacing:-.01em;}
+  .cta-copy p{margin:0;font-size:14px;color:var(--muted-foreground);max-width:480px;}
+  .cta-copy code{font-family:var(--font-mono);background:var(--muted);padding:1px 5px;border-radius:var(--radius-md);font-size:.85em;color:var(--foreground);}
+  .cta-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .clone{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:var(--foreground);
+    background:var(--muted);border:1px solid var(--border);border-radius:var(--radius-md);padding:8px 12px;cursor:pointer;transition:border-color .12s;}
+  .clone:hover{border-color:var(--ring);}
+  .clone .cp{color:var(--muted-foreground);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;}
+
   /* ── cards ── */
   .grid{display:grid;gap:16px;}
   .cards-2{grid-template-columns:repeat(2,1fr);}
@@ -263,6 +275,17 @@
       <div class="stat"><div class="n">3</div><div class="l">sealed problems, ramping up</div></div>
       <div class="stat"><div class="n">4</div><div class="l">architecture presets</div></div>
       <div class="stat"><div class="n">3·5·7</div><div class="l">allowed squad sizes</div></div>
+    </div>
+
+    <div class="cta">
+      <div class="cta-copy">
+        <h3>Clone this to get started</h3>
+        <p>Open the <code>loop-squad</code> skill after cloning — it's the full playbook (setup → squad → run → submit), so your coding agent has everything it needs in context.</p>
+      </div>
+      <div class="cta-actions">
+        <button class="clone" id="clone" title="Click to copy">git clone https://github.com/zeeshan8281/loop.fail<span class="cp">copy</span></button>
+        <a class="btn btn-primary" href="https://github.com/zeeshan8281/loop.fail/blob/main/skills/loop-squad/SKILL.md" target="_blank" rel="noopener">Open the agent skill →</a>
+      </div>
     </div>
   </section>
 
@@ -409,6 +432,16 @@ async function loadBoards(){
   const root=document.documentElement, saved=localStorage.getItem('ls-theme');
   if(saved==='dark'||(!saved&&matchMedia('(prefers-color-scheme: dark)').matches)) root.classList.add('dark');
   document.getElementById('theme').onclick=()=>{ root.classList.toggle('dark'); localStorage.setItem('ls-theme', root.classList.contains('dark')?'dark':'light'); };
+})();
+
+/* ── copy clone command ── */
+(function(){
+  const el=document.getElementById('clone'); if(!el) return;
+  el.onclick=()=>{
+    navigator.clipboard?.writeText('git clone https://github.com/zeeshan8281/loop.fail');
+    const c=el.querySelector('.cp'), t=c.textContent; c.textContent='copied ✓';
+    setTimeout(()=>c.textContent=t, 1300);
+  };
 })();
 
 showView(location.hash.slice(1) || 'overview');
