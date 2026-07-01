@@ -84,11 +84,11 @@
   solver: zeeshan8281
   architecture: supervisor
   squad_size: 3
-  models: [Haiku]
+  models: [z-ai/glm-5.2]
   solved: true
-  cost: 0.0501
+  cost: 0.0041
   iterations: 1
-  score: 61
-  run_hash: 5128c5cb1920a0a8118a755c2b38b1684b31ffcf61772c74ccddcb112678b030
+  score: 15
+  run_hash: 43203cd7fd25bf70da8e20fb70b4d00b0b778492aa6a025a637d5f49bec61649
   created: 2026-07-01
   verified: self-reported
