@@ -79,3 +79,16 @@
   run_hash: cd34ef5600000000000000000000000000000000000000000000000000000088
   created: 2026-06-24
   verified: true
+
+- task: 001_fix_bugs
+  solver: zeeshan8281
+  architecture: supervisor
+  squad_size: 3
+  models: [Haiku]
+  solved: true
+  cost: 0.0501
+  iterations: 1
+  score: 61
+  run_hash: 5128c5cb1920a0a8118a755c2b38b1684b31ffcf61772c74ccddcb112678b030
+  created: 2026-07-01
+  verified: self-reported
