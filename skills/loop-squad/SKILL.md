@@ -21,7 +21,7 @@ through the `loop` CLI from inside the repo.
 Clone/fork the repo, install deps, and set your handle + a provider key:
 
 ```bash
-git clone https://github.com/eigen-labs/loop-squad && cd loop-squad
+git clone https://github.com/zeeshan8281/loop.fail && cd loop.fail
 pip install -r requirements.txt
 ./loop config --handle <your_github_handle>
 export DARKBLOOM_API_KEY=...      # and/or ANTHROPIC_API_KEY / OPENAI_API_KEY
