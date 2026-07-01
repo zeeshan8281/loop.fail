@@ -31,7 +31,7 @@ row to `leaderboard.yaml`. CI checks it; merge puts you on the board.
 ```
 ── result ────────────────────────────
 task:         001_fix_bugs
-solver:       @aashatwt
+solver:       @zeeshan8281
 architecture: 3-agent supervisor
 solved:       yes
 cost:         $0.0110
