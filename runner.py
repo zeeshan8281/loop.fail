@@ -59,8 +59,18 @@ class Provider:
                 model=agent["model"], messages=messages,
                 temperature=0, seed=0,  # determinism (best-effort across providers)
             )
-            text = resp.choices[0].message.content or ""
-            pt, ct = resp.usage.prompt_tokens, resp.usage.completion_tokens
+            # OpenRouter (and some gateways) return errors as a 200 body with no choices,
+            # sometimes null usage, and reasoning models can leave content empty.
+            choices = getattr(resp, "choices", None)
+            if not choices:
+                err = getattr(resp, "error", None) or getattr(resp, "model_extra", {}).get("error")
+                raise SystemExit(f"{agent['model']} @ {agent['base_url']} returned no choices — "
+                                 f"check the model id and your key. Provider said: {err or resp}")
+            msg = choices[0].message
+            text = msg.content or getattr(msg, "reasoning", None) or ""
+            usage = getattr(resp, "usage", None)
+            pt = getattr(usage, "prompt_tokens", 0) or 0
+            ct = getattr(usage, "completion_tokens", 0) or 0
         p = agent["pricing"]
         self.cost += (pt * p["in"] + ct * p["out"]) / 1_000_000  # pricing is $/1M tokens
         self.tokens += pt + ct
