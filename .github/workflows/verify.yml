@@ -1,0 +1,34 @@
+name: verify
+
+on:
+  pull_request:
+    paths: [submissions/**, leaderboard.yaml, runner.py, scorer.py, verifier.py, architectures/**, tasks/**]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r requirements.txt pytest
+
+      # 1. the loop/score/hash pipeline works (offline mock that actually solves 001)
+      - run: python -m pytest tests/ -q
+
+      # 2. every leaderboard row is well-formed and its score matches the formula
+      - run: python verify_leaderboard.py
+
+      # 3. keep the Pages copy in sync with the source of truth
+      - name: Check docs/ copies are in sync
+        run: |
+          for f in leaderboard.yaml tasks.yaml; do
+            diff -q "$f" "docs/$f" \
+              || (echo "::error::docs/$f is stale — run: cp $f docs/$f" && exit 1)
+          done
+
+      # 4. run_hash re-verification happens here when CI can reach the builder's model.
+      #    If not (self-hosted/private endpoint), the row keeps its "self-reported" badge.
+      #    Top-3 spot-checks are run manually each quarter (see PRD §11).

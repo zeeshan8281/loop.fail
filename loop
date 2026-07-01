@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# loop — thin shim so you can run ./loop from the repo root (or symlink onto PATH).
+exec python3 "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")/loop_cli.py" "$@"

@@ -1,0 +1,17 @@
+# The problem menu — three problems, ramping up. Pick one, write a squad, run it.
+# Order + labels drive the leaderboard tabs and `loop tasks`.
+- id: 001_fix_bugs
+  title: fix_bugs
+  blurb: Fix three bugs in a run-length codec so encode/decode round-trip.
+  difficulty: warmup
+  starter: supervisor
+- id: 002_implement
+  title: implement
+  blurb: Implement calc(expr) — an integer expression evaluator with precedence and parens.
+  difficulty: medium
+  starter: sequential
+- id: 003_extract
+  title: extract
+  blurb: Parse a messy invoice into structured JSON; compute the total yourself.
+  difficulty: medium
+  starter: debate

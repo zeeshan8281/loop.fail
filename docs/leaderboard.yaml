@@ -1,0 +1,81 @@
+# Loop Squad leaderboard. One row per (task, solver). Lower score wins.
+# `loop submit` appends here; CI verifies row shape + score arithmetic on merge.
+# score = round(cost*1000 + iterations*5 + squad_size*2)
+
+- task: 001_fix_bugs
+  solver: aashatwt
+  architecture: supervisor
+  squad_size: 3
+  models: [Haiku, Darkbloom]
+  solved: true
+  cost: 0.011
+  iterations: 3
+  score: 32
+  run_hash: 8a2fcd9b3e0000000000000000000000000000000000000000000000000000ab
+  created: 2026-06-27
+  verified: true
+
+- task: 001_fix_bugs
+  solver: priyanka
+  architecture: sequential
+  squad_size: 3
+  models: [Darkbloom]
+  solved: true
+  cost: 0.006
+  iterations: 5
+  score: 37
+  run_hash: 1c4ade7700000000000000000000000000000000000000000000000000000099
+  created: 2026-06-29
+  verified: true
+
+- task: 002_implement
+  solver: marcus
+  architecture: sequential
+  squad_size: 3
+  models: [Haiku, Darkbloom]
+  solved: true
+  cost: 0.028
+  iterations: 4
+  score: 54
+  run_hash: 9090fefe00000000000000000000000000000000000000000000000000000071
+  created: 2026-06-28
+  verified: true
+
+- task: 002_implement
+  solver: aashatwt
+  architecture: manager
+  squad_size: 5
+  models: [Opus, Darkbloom]
+  solved: true
+  cost: 0.120
+  iterations: 5
+  score: 155
+  run_hash: aa11bb2200000000000000000000000000000000000000000000000000000055
+  created: 2026-06-26
+  verified: self-reported
+
+- task: 003_extract
+  solver: priyanka
+  architecture: debate
+  squad_size: 5
+  models: [Darkbloom]
+  solved: true
+  cost: 0.041
+  iterations: 3
+  score: 66
+  run_hash: ef78ab9000000000000000000000000000000000000000000000000000000033
+  created: 2026-06-30
+  verified: true
+
+- task: 003_extract
+  solver: marcus
+  architecture: manager
+  squad_size: 5
+  models: [Opus, Haiku]
+  solved: true
+  cost: 0.160
+  iterations: 4
+  score: 190
+  run_hash: cd34ef5600000000000000000000000000000000000000000000000000000088
+  created: 2026-06-24
+  verified: true

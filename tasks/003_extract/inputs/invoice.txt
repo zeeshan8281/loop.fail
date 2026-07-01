@@ -1,0 +1,17 @@
+========================================
+INVOICE  —  Acme Corp
+Bill to: Wile E. Coyote
+Date: 2026-03-14
+----------------------------------------
+Line items (qty x description @ unit price):
+
+  3 x Widget @ $9.99
+  1 x Deluxe Gadget @ $149.00
+  10 x Bolt @ $0.25
+
+----------------------------------------
+Please remit within 30 days.
+Notes: the printed total below may be stale — compute it from the line items.
+Printed total: $0.00
+Thank you for your business!
+========================================
