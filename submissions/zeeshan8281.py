@@ -1,9 +1,9 @@
-"""zeeshan8281 — 3-agent supervisor, GLM-4.6 via OpenRouter."""
+"""zeeshan8281 — 3-agent supervisor, Haiku 4.5 via Anthropic's OpenAI-compatible endpoint."""
 
-_MODEL = "z-ai/glm-4.6"                # glm-5.2 is not a real OpenRouter slug; 4.6 is the current GLM
-_BASE = "https://openrouter.ai/api/v1"
-_PRICING = {"in": 0.43, "out": 1.74}  # z-ai/glm-4.6 live $/1M (verified openrouter.ai/models)
-_KEY = "OPENROUTER_API_KEY"
+_MODEL = "claude-haiku-4-5"                   # cheap, fast, strong at small coding tasks
+_BASE = "https://api.anthropic.com/v1"        # OpenAI-compatible surface
+_PRICING = {"in": 1.0, "out": 5.0}            # claude-haiku-4-5 live $/1M
+_KEY = "ANTHROPIC_API_KEY"
 
 SQUAD = {
     "architecture": "supervisor",
