@@ -3,19 +3,6 @@
 # score = round(cost*1000 + iterations*5 + squad_size*2)
 
 - task: 001_fix_bugs
-  solver: aashatwt
-  architecture: supervisor
-  squad_size: 3
-  models: [Haiku, Darkbloom]
-  solved: true
-  cost: 0.011
-  iterations: 3
-  score: 32
-  run_hash: 8a2fcd9b3e0000000000000000000000000000000000000000000000000000ab
-  created: 2026-06-27
-  verified: true
-
-- task: 001_fix_bugs
   solver: priyanka
   architecture: sequential
   squad_size: 3
@@ -40,19 +27,6 @@
   run_hash: 9090fefe00000000000000000000000000000000000000000000000000000071
   created: 2026-06-28
   verified: true
-
-- task: 002_implement
-  solver: aashatwt
-  architecture: manager
-  squad_size: 5
-  models: [Opus, Darkbloom]
-  solved: true
-  cost: 0.120
-  iterations: 5
-  score: 155
-  run_hash: aa11bb2200000000000000000000000000000000000000000000000000000055
-  created: 2026-06-26
-  verified: self-reported
 
 - task: 003_extract
   solver: priyanka
@@ -104,4 +78,17 @@
   score: 21
   run_hash: 02df6e064d97225a0b6c2d314709e50e72859f531ffb65e7801e69a17b4283a1
   created: 2026-07-01
+  verified: self-reported
+
+- task: 002_implement
+  solver: zeeshan8281
+  architecture: supervisor
+  squad_size: 3
+  models: [Haiku]
+  solved: true
+  cost: 0.0082
+  iterations: 1
+  score: 19
+  run_hash: 8c98a11d8711ed03db02465401ab0072e6609e7ade249f8978413d17d32aa8d1
+  created: 2026-07-07
   verified: self-reported
