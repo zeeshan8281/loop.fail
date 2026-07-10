@@ -1,0 +1,35 @@
+name: automerge
+
+# ponytail: pull_request_target so fork PRs get a write token to enable auto-merge.
+# We NEVER check out PR code here — only call the merge API — so untrusted code
+# never runs with this token. GitHub does the actual merge, and only once the
+# required `verify` check passes (see branch protection on main).
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      # Only auto-merge submission PRs. If a PR touches anything outside the
+      # allowlist (submissions/**, leaderboard.yaml, docs/leaderboard.yaml) —
+      # e.g. runner.py, scorer.py, or a workflow — leave it for manual review.
+      - run: |
+          files=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[].filename')
+          outside=$(echo "$files" | grep -vE '^(submissions/|leaderboard\.yaml$|docs/leaderboard\.yaml$)' || true)
+          if [ -n "$outside" ]; then
+            echo "PR touches non-submission files, skipping auto-merge:"
+            echo "$outside"
+            exit 0
+          fi
+          gh pr merge "$PR" --auto --squash --repo "$REPO"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
