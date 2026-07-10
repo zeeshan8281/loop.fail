@@ -1,0 +1,50 @@
+name: verify-failure-comment
+
+# When `verify` fails on a PR, tell the contributor why — otherwise a fork PR
+# just shows a silent red X. Runs via workflow_run so it has a write token even
+# for fork PRs, and it never checks out PR code.
+on:
+  workflow_run:
+    workflows: [verify]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  comment:
+    if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          SHA="${{ github.event.workflow_run.head_sha }}"
+          RUN_URL="${{ github.event.workflow_run.html_url }}"
+          # fork PRs don't populate workflow_run.pull_requests — resolve via head sha
+          PR=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[0].number')
+          [ -z "$PR" ] && { echo "no PR for $SHA"; exit 0; }
+
+          body=$(cat <<EOF
+          <!-- verify-failure-bot -->
+          ❌ The \`verify\` check failed on this PR, so it won't auto-merge until it's green. [See the logs]($RUN_URL).
+
+          Most submission failures are one of:
+          - **Invalid YAML** in \`leaderboard.yaml\` — check indentation and that your row parses.
+          - **\`docs/\` out of sync** — run \`cp leaderboard.yaml docs/leaderboard.yaml\` and commit (the live site is served from \`docs/\`).
+          - **Score mismatch** — your \`score\` must match the formula in \`verifier.py\`.
+
+          Push a fix and it'll re-check and merge automatically.
+          EOF
+          )
+
+          # upsert: update the bot's existing comment if present, else create one
+          CID=$(gh api "repos/$REPO/issues/$PR/comments" --jq '.[] | select(.body | contains("<!-- verify-failure-bot -->")) | .id' | head -1)
+          if [ -n "$CID" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$CID" -f body="$body" >/dev/null
+          else
+            gh api -X POST "repos/$REPO/issues/$PR/comments" -f body="$body" >/dev/null
+          fi
+          echo "commented on PR #$PR"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
