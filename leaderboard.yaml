@@ -131,3 +131,7 @@
   run_hash: ea3d95cfaf704a992d79250dbe9f448b5df3edbe49730b74dc61a79c16020b57
   created: 2026-07-10
   verified: self-reported
+
+this: is: invalid: yaml:
+  - broken
+ : nope
