@@ -116,5 +116,16 @@
   iterations: 1
   score: 11
   run_hash: a0d6a2800e3c401f178e5a68412b4f67be0ab6f6382ea3e4caf82db62baae572
+  
+  - task: 001_fix_bugs
+  solver: chainyoda
+  architecture: sequential
+  squad_size: 3
+  models: [Darkbloom]
+  solved: true
+  cost: 0.0016
+  iterations: 1
+  score: 13
+  run_hash: c161cc6eaf44c33a1f928cc8ff1f3ac8148edc77b0bd271609e68ac01456f2ea
   created: 2026-07-10
   verified: self-reported
