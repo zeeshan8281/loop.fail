@@ -1,0 +1,24 @@
+name: automerge
+
+# ponytail: pull_request_target so fork PRs get a write token to enable auto-merge.
+# We NEVER check out PR code here — only call the merge API — so untrusted code
+# never runs with this token. GitHub does the actual merge, and only once the
+# required `verify` check passes (see branch protection on main).
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - run: gh pr merge "$PR" --auto --squash --repo "$REPO"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}

@@ -1,8 +1,10 @@
 name: verify
 
+# Runs on every PR (no path filter): it's a required check for auto-merge, so it
+# must always report — a path-filtered required check would deadlock PRs that
+# don't touch those paths.
 on:
   pull_request:
-    paths: [submissions/**, leaderboard.yaml, runner.py, scorer.py, verifier.py, architectures/**, tasks/**]
   push:
     branches: [main]
 
