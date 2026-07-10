@@ -18,11 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          SHA="${{ github.event.workflow_run.head_sha }}"
           RUN_URL="${{ github.event.workflow_run.html_url }}"
-          # fork PRs don't populate workflow_run.pull_requests — resolve via head sha
-          PR=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[0].number')
-          [ -z "$PR" ] && { echo "no PR for $SHA"; exit 0; }
+          # fork PRs populate neither workflow_run.pull_requests nor /commits/{sha}/pulls
+          # (head commit lives in the fork) — resolve via head owner:branch instead.
+          PR=$(gh api "repos/$REPO/pulls?head=$OWNER:$BRANCH&state=open" --jq '.[0].number')
+          [ -z "$PR" ] && { echo "no open PR for $OWNER:$BRANCH"; exit 0; }
 
           body=$(cat <<EOF
           <!-- verify-failure-bot -->
@@ -48,3 +48,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
+          OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
