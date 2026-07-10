@@ -117,7 +117,7 @@
   score: 11
   run_hash: a0d6a2800e3c401f178e5a68412b4f67be0ab6f6382ea3e4caf82db62baae572
   
-  - task: 001_fix_bugs
+- task: 001_fix_bugs
   solver: chainyoda
   architecture: sequential
   squad_size: 3
