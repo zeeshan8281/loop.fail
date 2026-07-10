@@ -17,7 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
     steps:
-      - run: gh pr merge "$PR" --auto --squash --repo "$REPO"
+      # Only auto-merge submission PRs. If a PR touches anything outside the
+      # allowlist (submissions/**, leaderboard.yaml, docs/leaderboard.yaml) —
+      # e.g. runner.py, scorer.py, or a workflow — leave it for manual review.
+      - run: |
+          files=$(gh api "repos/$REPO/pulls/$PR/files" --paginate --jq '.[].filename')
+          outside=$(echo "$files" | grep -vE '^(submissions/|leaderboard\.yaml$|docs/leaderboard\.yaml$)' || true)
+          if [ -n "$outside" ]; then
+            echo "PR touches non-submission files, skipping auto-merge:"
+            echo "$outside"
+            exit 0
+          fi
+          gh pr merge "$PR" --auto --squash --repo "$REPO"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.number }}
